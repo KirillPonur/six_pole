@@ -1,0 +1,167 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+% \usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{cmap,tikz,tikz-3dplot}
+% \usetikzlibrary{arrows,calc}
+\usetikzlibrary
+    {
+        arrows,
+        patterns,
+        angles,
+        quotes,
+        calc, 
+        % 3d,  
+        backgrounds, 
+        positioning,
+        intersections,
+        arrows.meta,
+        babel
+    }
+\usetikzlibrary{fadings,through}
+% \pgfplotsset{compat=newest}
+\usepackage[outline]{contour}
+\begin{document}
+\tdplotsetmaincoords{45}{75}
+\begin{tikzpicture}[
+	% width=5cm,
+	% height=5cm,
+	tdplot_main_coords,
+	% x={(1cm,0cm)}, 
+	% y={(0cm,1cm)}, 
+	% z={(0cm,0cm)}, 
+	% x={(0.866cm,-0.5cm)}, 
+	% y={(0.866cm,0.5cm)}, 
+	z={(0cm,.2cm)}, 
+	scale=1.2,
+    %Option for nice arrows
+    % >=stealth, %
+    % inner sep=0pt, outer sep=2pt,%
+    axis/.style={thick,->},
+    % wave/.style={thick,color=#1,smooth},
+    % polaroid/.style={fill=black!60!white, opacity=0.3},
+]
+    % Colors
+    % \colorlet{darkgreen}{green!50!black}
+    % \colorlet{lightgreen}{green!80!black}
+    % \colorlet{darkred}{red!50!black}
+    % \colorlet{lightred}{red!80!black}
+
+    % Frame
+    \coordinate (O) at (0, 0, 0);
+    \coordinate (O') at (0, 0, 1);
+    % \draw[axis] (O) -- +(2, 0,   0) node [right] {x};
+    % \draw[axis] (O) -- +(0,  2, 0) node [right] {y};
+    % \draw[axis] (O) -- +(0,  0,   2) node [above] {z};
+
+% \draw (xyz cylindrical cs:angle=xyz cylindrical cs,radius=angle=\i*60,radius=0,z=4,z=0)
+	\xdef\height{1.5}
+	\xdef\ness{1.5}
+	\draw (O) ++ (xyz cylindrical cs:radius=angle=0,radius=\ness,z=0,z=0) 
+		-- ++ (xyz cylindrical cs:angle=60,radius=\height,z=0) coordinate (1) 
+		-- ++ (xyz cylindrical cs:angle=60+90,radius={\ness*2*cos(60,z=0)}) coordinate (2) 
+		-- ++ (xyz cylindrical cs:angle=60+90+90,radius=\height,z=0)  coordinate (a) 
+		%
+		-- ++(xyz cylindrical cs:angle=60+90+90-60,radius=\height,z=0) coordinate (3) 
+		-- ++(xyz cylindrical cs:angle=60+90+90-60+90,radius={\ness*2*cos(60,z=0)}) coordinate (4) 
+		-- ++(xyz cylindrical cs:angle=60+90+90-60+90+90,radius=\height,z=0) coordinate (b)  
+		%
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60,radius=\height,z=0) coordinate (5) 
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60+90,radius={\ness*2*cos(60,z=0)}) coordinate (6) 
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60+90+90,radius=\height,z=0) coordinate (c);
+
+	
+	\coordinate (A) at ($(1)!0.5!(2)$);
+	\coordinate (B) at ($(3)!0.5!(4)$);
+	\coordinate (C) at ($(5)!0.5!(6)$);
+
+
+	\coordinate (Al) at ($(1)!0.33!(2)$);
+	\coordinate (Bl) at ($(3)!0.33!(4)$);
+	\coordinate (Cl) at ($(5)!0.33!(6)$);
+
+	\coordinate (Ar) at ($(1)!0.66!(2)$);
+	\coordinate (Br) at ($(3)!0.66!(4)$);
+	\coordinate (Cr) at ($(5)!0.66!(6)$);
+	% \coordinate (OO) at (xyz cylindrical cs:angle=0,radius={\ness*(1-cos(60)/cos(30))},z=0);
+	% \draw[dashed] (OO) -- (A) (OO) -- (B) (OO) -- (C);
+
+% 
+% 
+% 
+	\xdef\height{1.5}
+	\xdef\ness{1.5}
+	\draw[fill opacity=0.7, fill=white] (O') ++ (xyz cylindrical cs:angle=0,radius=\ness,z=1) 
+		-- ++ (xyz cylindrical cs:angle=60,radius=\height,z=0) coordinate (1') 
+		-- ++ (xyz cylindrical cs:angle=60+90,radius={\ness*2*cos(60)},z=0) coordinate (2') 
+		-- ++ (xyz cylindrical cs:angle=60+90+90,radius=\height,z=0)  coordinate (a') 
+		%
+		-- ++(xyz cylindrical cs:angle=60+90+90-60,radius=\height,z=0) coordinate (3') 
+		-- ++(xyz cylindrical cs:angle=60+90+90-60+90,radius={\ness*2*cos(60)},z=0) coordinate (4') 
+		-- ++(xyz cylindrical cs:angle=60+90+90-60+90+90,radius=\height,z=0) coordinate (b')  
+		%
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60,radius=\height,z=0) coordinate (5') 
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60+90,radius={\ness*2*cos(60)},z=0) coordinate (6') 
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60+90+90,radius=\height,z=0) coordinate (c') --cycle;
+
+	
+	\coordinate (A') at ($(1')!0.5!(2')$);
+	\coordinate (B') at ($(3')!0.5!(4')$);
+	\coordinate (C') at ($(5')!0.5!(6')$);
+
+	\coordinate (Al') at ($(1')!0.33!(2')$);
+	\coordinate (Bl') at ($(3')!0.33!(4')$);
+	\coordinate (Cl') at ($(5')!0.33!(6')$);
+
+	\coordinate (Ar') at ($(1')!0.66!(2')$);
+	\coordinate (Br') at ($(3')!0.66!(4')$);
+	\coordinate (Cr') at ($(5')!0.66!(6')$);
+
+	\draw (1) -- (1') (2) -- (2') (3) -- (3') (4) -- (4') (5) -- (5') (6) -- (6') (a) -- (a') (b) -- (b') (c) -- (c');
+
+	\draw[fill opacity=0.7, fill=white] (O') ++ (xyz cylindrical cs:angle=0,radius=\ness,z=1) 
+		-- ++ (xyz cylindrical cs:angle=60,radius=\height,z=0) coordinate (1') 
+		-- ++ (xyz cylindrical cs:angle=60+90,radius={\ness*2*cos(60)},z=0) coordinate (2') 
+		-- ++ (xyz cylindrical cs:angle=60+90+90,radius=\height,z=0)  coordinate (a') 
+		%
+		-- ++(xyz cylindrical cs:angle=60+90+90-60,radius=\height,z=0) coordinate (3') 
+		-- ++(xyz cylindrical cs:angle=60+90+90-60+90,radius={\ness*2*cos(60)},z=0) coordinate (4') 
+		-- ++(xyz cylindrical cs:angle=60+90+90-60+90+90,radius=\height,z=0) coordinate (b')  
+		%
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60,radius=\height,z=0) coordinate (5') 
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60+90,radius={\ness*2*cos(60)},z=0) coordinate (6') 
+		-- ++ (xyz cylindrical cs:angle=60+90+90-60+90+90-60+90+90,radius=\height,z=0) coordinate (c') --cycle;
+
+	\coordinate (OO') at (xyz cylindrical cs:angle=0,radius={\ness*(1-cos(60)/cos(30))},z=2);
+	\draw[dashed] (OO') -- (A') (OO') -- (B') (OO') -- (C');
+
+
+
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (A) -- (A');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (Al) -- (Al');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (Bl) -- (Bl');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (Cl) -- (Cl');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (Ar) -- (Ar');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (Br) -- (Br');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (Cr) -- (Cr');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (B) -- (B');
+	\draw[thick,->,arrows = {-Latex[width=0pt 4, length=4pt]}] (C) -- (C');
+
+\begin{scope}[canvas is xy plane at z = 0]
+	\draw (0,0) ++ ({\ness*(1-cos(60)/cos(30))},0)  ++(60:2.2) node[sloped] {$3$};
+	\draw (0,0) ++ ({\ness*(1-cos(60)/cos(30))},0)  ++(-60:2.2) node[sloped] {$1$};
+\end{scope}
+\begin{scope}[canvas is xy plane at z = 1]
+	\pic [draw, sloped,canvas is xy plane at z = 1, <->,transform shape, "$120^\circ$", angle eccentricity=1.7, scale=0.5] {angle = A'--OO'--B'};
+	\pic [draw, black!50, sloped,canvas is xy plane at z = 1, <->,transform shape, "$120^\circ$", angle eccentricity=1.7, scale=0.5] {angle = C'--OO'--A'};
+	\pic [draw, black!50, sloped,canvas is xy plane at z = 1, <->,transform shape, "$120^\circ$", angle eccentricity=1.7, scale=0.5] {angle = B'--OO'--C'};
+	\draw (0,0) ++ ({\ness*(1-cos(60)/cos(30))},0)  ++(-180:2.6) node[sloped] {$2$};
+\end{scope}
+
+\end{tikzpicture}
+\end{document}

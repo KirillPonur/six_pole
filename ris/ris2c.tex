@@ -1,0 +1,62 @@
+\documentclass[border=1pt]{standalone}
+\usepackage[europeanresistors,americaninductors]{circuitikz}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+\usepackage
+  {
+    % Дополнения Американского математического общества (AMS)
+    amssymb,
+    amsfonts,
+    amsmath
+  }
+\tikzset{
+  pics/carc/.style args={#1:#2:#3}{
+    code={
+      \draw[pic actions] (#1:#3) arc(#1:#2:#3);
+    }
+  }
+}
+
+\begin{document}
+	
+      \begin{circuitikz}[scale=1.1]
+      % \draw (0,0) to [short,o-,L, l^={$L$}](4,0);
+
+      % \draw (0,-2) node  {$Z_B$};
+      % \draw (7,-2) node  {$Z_H=Z_B/2$};
+
+      % \draw[thick] (2,-2) pic[red, latex-]{carc=-150:150:.5cm} node {$I$};
+      % % \draw[thick] (6,-2) pic[red, -latex]{carc=-150:150:1.3cm} node {$J_2$};
+      % % \draw[thick] (10,-2) pic[red, -latex]{carc=-150:150:1.3cm} node {$J_3$};
+
+      \draw (-1,0) to [short,*-] (2,0) node [right, yshift=1em] {a}
+                  to  [short,-*] ++(0,-0.5) coordinate (*)
+                  to  ++(-0.5,0)
+                  to [R, l_=$Z_0$] ++(0,-1.5)
+                  to  [short,-*] ++(+0.5,0)
+                  to  [short] ++(0,-0.5);
+
+      \draw (*)   to  ++(0.5,0)
+                  to [R, l^={${Z_H=\frac{Z_B}{2}}$}] ++(0,-1.5)
+                  to  [short,-*] ++(-0.5,0) to ++(0,-0.5) coordinate (**)   node [right, yshift=-1em] {b};
+
+      \draw (**)  to[short,-*]++ (-3,0);
+
+      \draw (0.5,-1.25) node[scale=1.5] {$\hookleftarrow$} node[left, xshift=-.5em] {$\Gamma$};
+      \draw (-1,-1.25) node[scale=1] {$Z_B$} node[left, xshift=-1.5em] {$1$};
+
+      \draw[->] (-1.5, -3.5) -- ++ (5.,0) node[right] {$z$};
+
+      \draw (-1,-3.5-0.1) node[below] {$-l$} -- (-1,-3.5+0.1);
+      \draw (2,-3.5-0.1) node[below] {$0$} -- ++(0,+0.2);
+      % % to  [short,*-](12,-4)
+      % % to  [short,-o] (14,-4);
+
+      % % \draw (8,0) to [R=$R$](8,-4);
+      % \draw (4,0) to [short,-o](7,0);
+      % \draw (4,-4) to [short,-o](7,-4);
+
+      \end{circuitikz}
+\end{document}

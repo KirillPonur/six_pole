@@ -1,0 +1,81 @@
+\documentclass[tikz]{standalone}
+
+\usepackage[T2A]{fontenc}
+\usepackage[utf8x]{inputenc}
+\usepackage[russian]{babel}
+% \usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\usepackage{cmap,tikz}
+% \usetikzlibrary{arrows,calc}
+\usetikzlibrary
+    {
+        arrows,
+        patterns,
+        angles,
+        quotes,
+        calc, 
+        3d,  
+        backgrounds, 
+        positioning
+    }
+\usetikzlibrary{fadings,through}
+% \pgfplotsset{compat=newest}
+\usepackage[outline]{contour}
+\begin{document}
+\begin{tikzpicture}
+
+% \def\opa{0.75}
+% \def\SIZE{4}
+
+%         \draw[step=1.0,red,thick, opacity=\opa] (0,0) grid (\SIZE,\SIZE);
+%         \draw[step=0.75,red,very thin, opacity=\opa] (0,0) grid (\SIZE,\SIZE);
+
+%         \foreach \i in {0,1,...,\SIZE} {
+%             \draw (0,\i) node [left,  opacity=\opa] {\i};
+%             \draw (\i,0) node [below,  opacity=\opa] {\i};
+%          };
+\draw (0,0) circle (1.5cm);
+\draw[double, double distance=.7cm] (0,0)  -- ++ (30:3);
+\draw[double, double distance=.7cm] (0,0)  -- ++ (-90:3);
+\draw[double, double distance=.7cm] (0,0)  -- ++ (180-30:3);
+\draw[fill=white,draw=none] (0,0) circle (1.5cm-.25pt);
+
+\draw[->,] (0,0)++ (-60:0.15)   ++ (30:2.5) -- ++ (30:0.75) coordinate (1);
+\draw[<-,] (0,0)++ (-60+180:0.15)   ++ (30:2.5) -- ++ (30:0.75) coordinate (2);
+
+\draw (1) ++ (30:0.25) node[scale=0.6]{$U_1^-$};
+\draw (2) ++ (30:0.25) node[scale=0.6]{$U_1^+$};
+
+\path (0,0)++ (-60:0.75)   ++ (30:2.45) coordinate (a);
+\path (0,0)++ (-60+180:0.75)   ++ (30:2.45) coordinate (b);
+\draw[dashed] (a) -- (b) node[above,circle,black,draw,solid,yshift=0.4999em] {1};
+
+\begin{scope}[rotate=120]
+\draw[->,] (0,0)++ (-60:0.15)   ++ (30:2.5) -- ++ (30:0.75) coordinate (1);
+\draw[<-,] (0,0)++ (-60+180:0.15)   ++ (30:2.5) -- ++ (30:0.75) coordinate (2);
+
+\draw (1) ++ (30:0.25) node[scale=0.6]{$U_2^-$};
+\draw (2) ++ (30:0.25) node[scale=0.6]{$U_2^+$};
+
+\path (0,0)++ (-60:0.75)   ++ (30:2.45) coordinate (a);
+\path (0,0)++ (-60+180:0.75)   ++ (30:2.45) coordinate (b);
+% \draw[dashed] (a) -- (b);
+\draw[dashed] (b) node[below, scale=0.7, align=center] {Плоскость \\ отсчета} -- (a) node[above,circle,black,draw,solid,yshift=0.4999em] {2} ;
+\end{scope}
+
+\begin{scope}[rotate=240]
+\draw[->,] (0,0)++ (-60:0.15)   ++ (30:2.5) -- ++ (30:0.75) coordinate (1);
+\draw[<-,] (0,0)++ (-60+180:0.15)   ++ (30:2.5) -- ++ (30:0.75) coordinate (2);
+
+\draw (1) ++ (30:0.25) node[scale=0.6]{$U_3^-$};
+\draw (2) ++ (30:0.25) node[scale=0.6]{$U_3^+$};
+
+\path (0,0)++ (-60:0.75)   ++ (30:2.45) coordinate (a);
+\path (0,0)++ (-60+180:0.75)   ++ (30:2.45) coordinate (b);
+\draw[dashed] (b) -- (a) node[left,circle,black,draw,solid,xshift=-0.4999em] {3};
+\end{scope}
+
+\end{tikzpicture}	
+\end{document}
