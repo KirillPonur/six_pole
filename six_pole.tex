@@ -64,9 +64,9 @@
 	\left( \begin{array} { c } { U _ { 1 } ^ { - } } \\ { U _ { 2 } ^ { - } } \\ { U _ { 3 } ^ { - } } \end{array} \right) = \hat { S } \left( \begin{array} { l } { U _ { 1 } ^ { + } } \\ { U _ { 2 } ^ { + } } \\ { U _ { 3 } ^ { + } } \end{array} \right)
 \end{equation}
 где
-\begin{equation}
+\begin{equation*}
 	\hat { \mathbf { S } } = \left( \begin{array} { c c c } { S _ { 11 } } & { S _ { 12 } } & { S _ { 13 } } \\ { S _ { 21 } } & { S _ { 22 } } & { S _ { 23 } } \\ { S _ { 31 } } & { S _ { 32 } } & { S _ { 33 } } \end{array} \right)
-\end{equation}
+\end{equation*}
 --- матрица рассеяния, или $S$-матрица (от англ. scattering -- рассеяние).
 
 Из определения элементов матрицы рассеяния (2), (3) следует, что для пассивных узлов, не обладающих свойством усиления мощности, модули коэффициентов передачи и отражения не могут превышать единицы.
@@ -412,7 +412,7 @@ $\lambda_0=35$ мм
 
 
 \begin{table}[h!]
-	\caption{Измерения характеристик шестиполюсника №1}
+	\caption{Измерение характеристик шестиполюсника №1}
 	\label{tab:1}
 	\vspace{1em}
 	\centering
@@ -421,7 +421,7 @@ $\lambda_0=35$ мм
 
 
 \begin{table}[h!]
-	\caption{Измерения характеристик шестиполюсника №2}
+	\caption{Измерение характеристик шестиполюсника №2}
 	\label{tab:2}
 	\vspace{1em}
 	\centering
@@ -430,23 +430,115 @@ $\lambda_0=35$ мм
 
 
 \begin{table}[h!]
-	\caption{Измерения характеристик шестиполюсника №3}
+	\caption{Измерение характеристик шестиполюсника №3}
 	\label{tab:3}
 	\vspace{1em}
 	\centering
 	\input{table3.tex}
 \end{table}
 
+\subsection{Экспериментальные матрицы рассеяния}
+
+\begin{equation}
+	\pgfplotstableread{rec/tab1.tsv}\loadedtable
+	\mathbf{\hat S_1} =\mqty(
+	\pgfplotstablegetelem{0}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{1}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{2}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	\pgfplotstablegetelem{1}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{3}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{4}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	\pgfplotstablegetelem{2}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{4}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{5}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	)
+\end{equation}
+Средствами \textbf{Python} было посчитано матричное произведение $\hat S_1 \hat S^*_1$
+(здесь и далее все элементы в матрицах округлялись до третьего знака после запятой):
+\begin{equation}
+	\mathbf{\hat S_1}\cdot \mathbf{\hat S_1^*}=
+	\mqty(1 & 0.52+0.06i & 0.53+0.25i \\
+		  0.52-0.06i & 0.91 & 0.5+0.1j \\
+		  0.53-0.25i & 0.5-0.1i & 1\\
+	    )\neq \mathbf{\hat I}
+\end{equation}
+Таким образом, шестиполюсник №1 нельзя считать взаимным. Проверим наличие потерь в нем:
+\begin{gather*}
+ 	\sum\limits_{m=1}^3 \abs{S_{km}}^2=1 \\
+ 	\sum\limits_{m=1}^3 \abs{S_{1m}}^2=1 \\
+ 	\sum\limits_{m=1}^3 \abs{S_{2m}}^2=0.92 \\
+ 	\sum\limits_{m=1}^3 \abs{S_{3m}}^2=1 \\
+ \end{gather*} 
+ Из этих соотношений видно, что потери в первом шестиполюснике довольно малы. 
+
+\begin{equation}
+	\pgfplotstableread{rec/tab2.tsv}\loadedtable
+	\mathbf{\hat S_2} =\mqty(
+	\pgfplotstablegetelem{0}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{1}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{2}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	\pgfplotstablegetelem{1}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{3}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{4}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	\pgfplotstablegetelem{2}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{4}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{5}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	)
+\end{equation}
+\begin{equation}
+	\mathbf{\hat S_2}\cdot \mathbf{\hat S_2^*}=
+	\mqty(0.7 & 0.1+0.1i & 0.1+0.2i \\
+		  0.1-0.1i & 0.7 & 0.1+0.1i \\
+		  0.1-0.2i & 0.1i & 0.7\\
+	    )\simeq \mathbf{\hat I}
+\end{equation}
+Проверим наличие потерь:
+\begin{gather*}
+ 	\sum\limits_{m=1}^3 \abs{S_{1m}}^2=0.69 \\
+ 	\sum\limits_{m=1}^3 \abs{S_{2m}}^2=0.71 \\
+ 	\sum\limits_{m=1}^3 \abs{S_{3m}}^2=0.65 \\
+ \end{gather*} 
+ Из этих соотношений видно, что потери в первом шестиполюснике довольно малы. 
+
+\begin{equation}
+	\pgfplotstableread{rec/tab3.tsv}\loadedtable
+	\mathbf{\hat S_3} =
+	\mqty(
+	\pgfplotstablegetelem{0}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{1}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{2}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	\pgfplotstablegetelem{1}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{3}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{4}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	\pgfplotstablegetelem{2}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+		& \pgfplotstablegetelem{4}{S}\of{\loadedtable}\text{\pgfplotsretval} 
+			& \pgfplotstablegetelem{5}{S}\of{\loadedtable}\text{\pgfplotsretval} \\
+	)
+\end{equation}
 
 
 
 
-
+\begin{equation}
+	\mathbf{\hat S_3}\cdot \mathbf{\hat S_3^*}=
+	\mqty(0.05 & 0.01+0.01i & -0.1-0.1i \\
+		  0.01-0.01i & 0.02 & -0.02+0.02i \\
+		  -0.11+0.07i & -0.02-0.02i & 0.7\\
+	    )
+\end{equation}
 
 
 \section{Определение конструкции шестиполюсников}
 
 Установить возможные конструктивные варианты волноводных узлов, образующих исследуемые шестиполюсники.
+\section{Контрольные вопросы}
+\begin{enumerate}
+	\item Физически элементы матрицы рассеяния, стоящий на диагонали, представляют собой отношение комплексной амплитуды волны, отраженной от выбранного входа, к амплитуде волны, падающей на этот вход. Недиагональный элемент определяет вклад волны, падающей на вход m, в волну, выходящую из входа k, то есть является коэффициентом передачи волны из m-го плеча в k-ое плечо. 
+	\item Изменение плоскости отсчета приводит к изменению фазы коэффициентов матрицы рассеяния, не меняя их абсолютного значения. 
+	\item Матрица симметрична, если если она квадратная и ее элементы симметричны относительно главной диагонали. 
+	\item Матрица унитарная, если она квадратная и результат умножения ее на эрмитово сопряженную равен единичной матрице. 
+	\item Диагональные элементы матрицы равны, если трехплечий волноводный узел обладает центральной симметрией, вследствие чего все его плечи равноправны по электрическим свойствам.
+\end{enumerate}
 
 \section{Вывод}
 Измерили коэффициенты матрицы рассеяния шестиполюсников и  установили на основе полученных данных возможные конструктивные варианты волноводных узлов, находящихся внутри шестиполюсников.
